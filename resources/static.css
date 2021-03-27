@@ -1,0 +1,71 @@
+.random-guys-mark:hover{
+    background: #E2C044;
+    box-shadow: 0 0 2px 1px #E2C044;
+}
+
+.random-guys-root{
+    position: absolute;
+    /*right: 0;*/
+    margin-right: 2.5vw;    /* 15vw lub 2.5vw */
+
+    transform: translate(0%, 1.5em);      /* 50% zamiast 100% */
+    z-index: 9999999;
+
+
+    background: #FFF;
+    border: 1px solid #E8EAED;
+    border-radius: 8px;
+    padding: 12px;
+    width: min(90vw, max(15vw, 282px));
+    min-height: 5vh;
+
+    display: none;
+}
+
+.random-guys-visible{
+    display: inline-block;
+}
+
+
+.random-guys-root:hover{
+    box-sizing: border-box;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.3);
+    border: none;
+}
+
+.random-guys-container, .random-guys-input{
+    width: 100%;
+}
+
+.random-guys-container{
+    display: flex;
+    flex-direction: column;
+    max-height: 40vh;
+    row-gap: 12px;
+    margin-bottom: 12px;
+}
+.random-guys-message{
+    border-bottom: 1px solid #E8EAED;
+    padding: 4px;
+}
+.random-guys-message:last-of-type{
+    border-bottom: none;
+}
+
+
+.random-guys-input{
+
+}
+
+.random-guys-input > input{
+    width: 100%;
+    border: 1px solid #E8EAED;
+    border-radius: 4px;
+    padding: 4px;
+    height: 1.25em;
+
+}
+
+.random-guys-input > input:active{
+    border: 2px solid rgb(26,115,232);
+}
