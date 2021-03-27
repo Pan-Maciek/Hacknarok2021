@@ -61,8 +61,8 @@ function addComment(comment) {
 
 function uploadComment(highlightId) {
   // get highlight by id
-  user = 'mati'; // TODO: change user 
-  text = document.getElementById(highlightId).getElementsByTagName('input').innerText;
+  let user = 'mati'; // TODO: change user
+  let text = document.getElementById(highlightId).getElementsByTagName('input').value;
   console.log(text)
   // const pageURL = encode(`${location.hostname}${location.pathname}`)
   // firebase.default.database().ref(`/pages/${encodeURIComponent(window.location.href)}/${highlightId}`)
@@ -111,7 +111,7 @@ function create_mark_with_popup(range, id){// TODO - create random ID for each m
   root.innerHTML = `<div class="random-guys-container">
                     </div><div class="random-guys-input">
                     <input id="comment-add-input" type="text">
-                    <button>Dodaj</button>
+                    <button onclick="uploadComment('` + id + `')">Dodaj</button>
                     </div>`
   
   console.log(range) // TODO DELETE
@@ -130,10 +130,10 @@ function create_mark_with_popup(range, id){// TODO - create random ID for each m
     console.log(e)
   })
 
-  const upload_button = root.querySelector('button')
+  /*const upload_button = root.querySelector('button')
   upload_button.addEventListener('click', (event) => {
     uploadComment(id)
-  })
+  })*/
 
   return mark_node
 }
