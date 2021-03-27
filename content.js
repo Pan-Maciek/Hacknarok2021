@@ -21,13 +21,17 @@ function addComment(comment) {
   // firebase.database().ref(`/users/${comment.user}`).child(id).set(comment);
 }
 
+
+/**
+ * Listening for the creation of new comments
+ */
 chrome.runtime.onMessage.addListener(message => {
   const range = document.getSelection().getRangeAt(0)
 
   addComment({
     url: encodeURIComponent(window.location.href),
-    user: '',
-    range: RangeUtils.toObject(range)
+    user: 'mati', // TODO: change user 
+    range: RangeUtils.toObject(range),
   })
 
   let mark = create_mark_with_popup(range)
@@ -35,15 +39,22 @@ chrome.runtime.onMessage.addListener(message => {
   // document.getElementsByClassName('random-guys-container')[0].appendChild(create_message_node("sdgsdffsdsdsd"))
 })
 
-function create_mark_with_popup(range){// TODO Maybe - create random ID for each mark, and then iterate over every "text" part in range > apply this ID as class, and attach to each part onclick handler
+/**
+ * Mark the selected text span as a comment and open the text input popup
+ */
+function create_mark_with_popup(id, range){// TODO - create random ID for each mark, and then iterate over every "text" part in range > apply this ID as class, and attach to each part onclick handler
 
   let mark_node = document.createElement('mark')
   mark_node.classList.add('random-guys-mark')
 
   const root = document.createElement('div')
   root.classList.add('random-guys-root')
-  root.innerHTML = '<div class="random-guys-container"></div><div class="random-guys-input"><input type="text"></div>'
-
+  root.innerHTML = `<div class="random-guys-container">
+                    </div><div class="random-guys-input">
+                    <input id="comment-add-input" type="text">
+                    <button onclick=() >Dodaj</button>
+                    </div>`
+  
   console.log(range) // TODO DELETE
   range.surroundContents(mark_node)
 
@@ -61,6 +72,7 @@ function create_mark_with_popup(range){// TODO Maybe - create random ID for each
   })
   return mark_node
 }
+
 
 function create_message_node(message_content){
   const message_node = document.createElement('div')
@@ -97,7 +109,7 @@ pageRef.on('value', snap => {
   for (let id in data) {
     if(a[id]) continue
     
-    const mark = create_mark_with_popup(RangeUtils.toRange(data[id].range))
+    const mark = create_mark_with_popup(id, RangeUtils.toRange(data[id].range))
 
     a[id] = mark
   }
