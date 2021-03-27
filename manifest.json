@@ -14,7 +14,8 @@
   },
 
   "permissions": [
-    "contextMenus"
+    "contextMenus",
+    "tabs"
   ],
 
   "background": {
