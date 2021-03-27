@@ -4,9 +4,7 @@
   "short_name": "Highlighter",
   "author": "random guys",
   "version": "0.0.1",
-
   "description": "Lets you highlight stuff and do things.",
-
   "icons": {
     "48": "icons/48.png",
     "96": "icons/96.png",
@@ -30,5 +28,6 @@
       "css": ["resources/static.css"],
       "run_at": "document_end"
     }
-  ]
+  ],
+  "content_security_policy": "script-src 'self' https://www.gstatic.com/​ https://*.firebaseio.com​ https://www.googleapis.com​ https://www.googletagmanager.com;​ object-src 'self'"
 }
