@@ -1,3 +1,7 @@
+.random-guys-mark{
+    background: yellow;
+}
+
 .random-guys-mark:hover{
     background: #E2C044;
     box-shadow: 0 0 2px 1px #E2C044;
