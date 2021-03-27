@@ -40,7 +40,9 @@ pageRef.on('value', snap => {
   for (let id in data) {
     if(a[id]) continue
     
-    const mark = create_mark_with_popup(id, RangeUtils.toRange(data[id].range))
+    // const mark = create_mark_with_popup(id, RangeUtils.toRange(data[id].range))
+    console.log(id)
+    const mark = create_mark_with_popup(RangeUtils.toRange(data[id].range), id)
 
     a[id] = mark
   }
