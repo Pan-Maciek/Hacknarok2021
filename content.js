@@ -3,33 +3,18 @@ chrome.runtime.onMessage.addListener(message => {
   let obj = RangeUtils.toObject(document.getSelection().getRangeAt(0))
   let range = RangeUtils.toRange(obj)
 
-  /*let mark = document.createElement('mark')
-  mark.classList.add('random-guys-mark')
-  const root = document.createElement('div')
-  root.classList.add('random-guys-root')
-  console.log(range)  // TODO DELETE
-  range.surroundContents(mark)
-  mark.appendChild(root)
-  mark.addEventListener('click', () => {
-    root.classList.toggle('random-guys-visible')
-  })*/
-
   let mark = create_mark_with_popup(range)
   document.getElementsByClassName('random-guys-container')[0].appendChild(create_message_node("sdsdsd"))
   document.getElementsByClassName('random-guys-container')[0].appendChild(create_message_node("sdgsdffsdsdsd"))
-
 })
 
+function create_mark_with_popup(range){// TODO Maybe - create random ID for each mark, and then iterate over every "text" part in range > apply this ID as class, and attach to each part onclick handler
 
-function create_mark_with_popup(range){
   let mark_node = document.createElement('mark')
   mark_node.classList.add('random-guys-mark')
 
-  // TODO Maybe - create random ID for each mark, and then iterate over every "text" part in range > apply this ID as class, and attach to each part onclick handler
-
   const root = document.createElement('div')
   root.classList.add('random-guys-root')
-
   root.innerHTML = '<div class="random-guys-container"></div><div class="random-guys-input"><input type="text"></div>'
 
   console.log(range) // TODO DELETE
