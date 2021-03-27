@@ -15,18 +15,9 @@ firebase.default.initializeApp(firebaseConfig)
 const pageURL = encode(`${location.hostname}${location.pathname}`)
 const pageRef = firebase.default.database().ref('/pages').child(pageURL)
 
-let a = {}
-pageRef.on('value', snap => {
+pageRef.on('child_added', snap => {
   const data = snap.val()
-  console.log(data)
-
-  for (let id in data) {
-    if (a[id]) continue
-
-    const mark = createHighlightWithPopup(RangeUtils.toRange(data[id].range), id)
-
-    a[id] = mark
-  }
+  createHighlightWithPopup(RangeUtils.toRange(data.range), snap.key)
 })
 
 /**
