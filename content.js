@@ -61,8 +61,7 @@ function addComment(comment) {
 function uploadComment(highlightId) {
   // get highlight by id
   let user = 'mati'; // TODO: change user
-  let text = document.getElementById(highlightId).getElementsByTagName('input').value;
-  console.log(text)
+  let text = document.getElementById(highlightId).getElementsByTagName('input')[0].value;
   // const pageURL = encode(`${location.hostname}${location.pathname}`)
   // firebase.default.database().ref(`/pages/${encodeURIComponent(window.location.href)}/${highlightId}`)
   var updates = {}
