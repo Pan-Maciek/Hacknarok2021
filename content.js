@@ -74,6 +74,11 @@ function createHighlightWithPopup(range, id) {// TODO - create random ID for eac
                     <button>Dodaj</button>
                     </div>`
 
+  const container = root.querySelector('.random-guys-container')
+  pageRef.child(id).child('comment').on('child_added', snap => {
+    const node = createCommentNode(snap.val().text)
+    container.append(node)
+  })
   range.surroundContents(markNode)
 
   markNode.appendChild(root)
