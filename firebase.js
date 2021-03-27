@@ -16,7 +16,7 @@ var app = firebase.initializeApp(firebaseConfig);
 console.log(firebase)
 // functions
 // pages -> url, comments[]
-// comment: id, url, user, selector, text 
+// comment: id, url, user, range
 
 
 function createGuid(){  

@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@types/chrome": "^0.0.133"
+    "@types/chrome": "^0.0.133",
+    "@types/firebase": "^3.2.1"
   }
 }

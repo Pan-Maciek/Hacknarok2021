@@ -1,10 +1,9 @@
 chrome.contextMenus.create({
-  title: "Title",
+  title: "Add comment",
   contexts: ["selection"],
   onclick: (e) => {
-    console.log("test");
-    chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
-      chrome.tabs.sendMessage(tabs[0].id, { a: 1 })
+    chrome.tabs.query({ currentWindow: true, active: true }, ([tab]) => {
+      chrome.tabs.sendMessage(tab.id, "context-menu")
     })
   },
 })
