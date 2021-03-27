@@ -4,42 +4,65 @@
   "short_name": "Highlighter",
   "author": "random guys",
   "version": "0.0.1",
-
   "description": "Lets you highlight stuff and do things.",
-
   "icons": {
     "48": "icons/48.png",
     "96": "icons/96.png",
     "128": "icons/128_chrome.png"
   },
-
+  "background": {
+    "page": "background.html",
+    "persistent": false
+  },
   "content_scripts": [
     {
-      "matches": ["*://randomname.pl/*"],
-      "exclude_matches": ["*://randomname.pl/dsdast/*"],
+      "matches": [
+        "*://randomname.pl/*"
+      ],
+      "exclude_matches": [
+        "*://randomname.pl/dsdast/*"
+      ],
       "run_at": "document_start",
-      "css": ["resources/static.css"]
+      "css": [
+        "resources/static.css"
+      ]
     },
-
     {
-      "matches": ["*://randomname.pl/*"],
-      "exclude_matches": ["*://randomname.pl/sdfsdfsdft/*"],
-      "js": ["contentScripts/documentStart.js"],
+      "matches": [
+        "*://randomname.pl/*"
+      ],
+      "exclude_matches": [
+        "*://randomname.pl/sdfsdfsdft/*"
+      ],
+      "js": [
+        "contentScripts/documentStart.js"
+      ],
       "run_at": "document_start"
     },
-
     {
-      "matches": ["*://randomname.pl/*"],
-      "exclude_matches": ["*://randomname.pl/sdfsdfsdfst/*"],
-      "js": ["contentScripts/documentEnd.js"],
+      "matches": [
+        "*://randomname.pl/*"
+      ],
+      "exclude_matches": [
+        "*://randomname.pl/sdfsdfsdfst/*"
+      ],
+      "js": [
+        "contentScripts/documentEnd.js"
+      ],
       "run_at": "document_end"
     },
-
     {
-      "matches": ["*://randomname.pl/*"],
-      "exclude_matches": ["*://randomname.pl/sdfsfdsdft/*"],
-      "js": ["contentScripts/documentIdle.js"],
+      "matches": [
+        "*://randomname.pl/*"
+      ],
+      "exclude_matches": [
+        "*://randomname.pl/sdfsfdsdft/*"
+      ],
+      "js": [
+        "contentScripts/documentIdle.js"
+      ],
       "run_at": "document_idle"
     }
-  ]
+  ],
+  "content_security_policy": "script-src 'self' https://www.gstatic.com/​ https://*.firebaseio.com​ https://www.googleapis.com​ https://www.googletagmanager.com;​ object-src 'self'"
 }
