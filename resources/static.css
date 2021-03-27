@@ -1,5 +1,10 @@
 .random-guys-mark{
+    all: unset;
     background: yellow;
+    cursor: pointer;
+}
+.random-guys-mark * {
+    all: initial
 }
 
 .random-guys-mark:hover{

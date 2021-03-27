@@ -51,8 +51,13 @@ function create_mark_with_popup(range){// TODO Maybe - create random ID for each
   mark_node.addEventListener('click', () => {
     root.classList.toggle('random-guys-visible')
   })
-  root.addEventListener('click', () => {
+  root.addEventListener('click', (event) => {
     event.stopPropagation()
+  }, false)
+
+  const input = root.querySelector('input')
+  input.addEventListener('keypress', e => {
+    console.log(e)
   })
   return mark_node
 }
@@ -94,6 +99,6 @@ pageRef.on('value', snap => {
     
     const mark = create_mark_with_popup(RangeUtils.toRange(data[id].range))
 
-    a[id] = root
+    a[id] = mark
   }
 })
