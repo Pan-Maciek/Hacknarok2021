@@ -34,16 +34,8 @@ pageRef.on('value', snap => {
  */
 const addHighlight = comment => pageRef.push(comment)
 
-function uploadComment(highlightId) {
-  // get highlight by id
-  let inputNode = document.getElementById(highlightId).getElementsByTagName('input')[0]
-  let text = inputNode.value;
-  // const pageURL = encode(`${location.hostname}${location.pathname}`)
-  // firebase.default.database().ref(`/pages/${encodeURIComponent(window.location.href)}/${highlightId}`)
+const uploadComment = (highlightId, text) =>
   pageRef.child(highlightId).child('comment').push({ user, text })
-  inputNode.value = ""
-  // add comment to highlight id
-}
 
 function createCommentNode(message_content) {
   const message_node = document.createElement('div')
@@ -73,7 +65,6 @@ function createHighlightWithPopup(range, id) {// TODO - create random ID for eac
 
   let markNode = document.createElement('mark')
   markNode.classList.add('random-guys-mark')
-  markNode.id = id
 
   const root = document.createElement('div')
   root.classList.add('random-guys-root')
@@ -89,20 +80,22 @@ function createHighlightWithPopup(range, id) {// TODO - create random ID for eac
   markNode.addEventListener('click', () => {
     root.classList.toggle('random-guys-visible')
   })
-  root.addEventListener('click', (event) => {
+  root.addEventListener('click', event => {
     event.stopPropagation()
   }, false)
 
   const input = root.querySelector('input')
   input.addEventListener('keypress', e => {
     if (e.key === "Enter") {
-      uploadComment(id)
+      uploadComment(id, input.value)
+      input.value = ""
     }
   })
 
   const uploadButton = root.querySelector('button')
   uploadButton.addEventListener('click', function () {
-    uploadComment(id)
+    uploadComment(id, input.value)
+    input.value = ""
   })
 
   return markNode
