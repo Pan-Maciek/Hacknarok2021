@@ -110,7 +110,7 @@ function create_mark_with_popup(range, id){// TODO - create random ID for each m
   root.classList.add('random-guys-root')
   root.innerHTML = `<div class="random-guys-container">
                     </div><div class="random-guys-input">
-                    <input id="comment-add-input" type="text">
+                    <input type="text">
                     <button onclick="uploadComment('` + id + `')">Dodaj</button>
                     </div>`
   
