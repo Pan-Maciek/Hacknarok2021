@@ -55,7 +55,10 @@
     row-gap: 12px;
     margin-bottom: 12px;
     overflow-y: scroll;
+    scrollbar-width: thin;
+
 }
+
 .random-guys-message{
     border-bottom: 1px solid #E8EAED;
     padding: 4px;

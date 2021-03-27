@@ -37,11 +37,11 @@ const addHighlight = comment => pageRef.push(comment)
 const uploadComment = (highlightId, text) =>
   pageRef.child(highlightId).child('comment').push({ user, text })
 
-function createCommentNode(message_content) {
-  const message_node = document.createElement('div')
-  message_node.classList.add('random-guys-message')
-  message_node.innerHTML = message_content
-  return message_node
+function createCommentNode(messageContent, userName) {
+  const messageNode = document.createElement('div')
+  messageNode.classList.add('random-guys-message')
+  messageNode.innerHTML = userName + ": " + messageContent
+  return messageNode
 }
 
 
@@ -76,8 +76,9 @@ function createHighlightWithPopup(range, id) {// TODO - create random ID for eac
 
   const container = root.querySelector('.random-guys-container')
   pageRef.child(id).child('comment').on('child_added', snap => {
-    const node = createCommentNode(snap.val().text)
+    const node = createCommentNode(snap.val().text, snap.val().user)
     container.append(node)
+    container.scrollBy(0,10000)
   })
   range.surroundContents(markNode)
 
