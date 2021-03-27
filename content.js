@@ -111,7 +111,7 @@ function create_mark_with_popup(range, id){// TODO - create random ID for each m
   root.innerHTML = `<div class="random-guys-container">
                     </div><div class="random-guys-input">
                     <input type="text">
-                    <button onclick="uploadComment('` + id + `')">Dodaj</button>
+                    <button>Dodaj</button>
                     </div>`
   
   console.log(range) // TODO DELETE
@@ -130,10 +130,10 @@ function create_mark_with_popup(range, id){// TODO - create random ID for each m
     console.log(e)
   })
 
-  /*const upload_button = root.querySelector('button')
-  upload_button.addEventListener('click', (event) => {
+  const upload_button = root.querySelector('button')
+  upload_button.addEventListener('click', function(){
     uploadComment(id)
-  })*/
+  })
 
   return mark_node
 }
