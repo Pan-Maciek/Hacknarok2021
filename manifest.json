@@ -1,0 +1,45 @@
+{
+  "manifest_version": 2,
+  "name": "Highlighter",
+  "short_name": "Highlighter",
+  "author": "random guys",
+  "version": "0.0.1",
+
+  "description": "Lets you highlight stuff and do things.",
+
+  "icons": {
+    "48": "icons/48.png",
+    "96": "icons/96.png",
+    "128": "icons/128_chrome.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://randomname.pl/*"],
+      "exclude_matches": ["*://randomname.pl/dsdast/*"],
+      "run_at": "document_start",
+      "css": ["resources/static.css"]
+    },
+
+    {
+      "matches": ["*://randomname.pl/*"],
+      "exclude_matches": ["*://randomname.pl/sdfsdfsdft/*"],
+      "js": ["contentScripts/documentStart.js"],
+      "run_at": "document_start"
+    },
+
+    {
+      "matches": ["*://randomname.pl/*"],
+      "exclude_matches": ["*://randomname.pl/sdfsdfsdfst/*"],
+      "js": ["contentScripts/documentEnd.js"],
+      "run_at": "document_end"
+    },
+
+    {
+      "matches": ["*://randomname.pl/*"],
+      "exclude_matches": ["*://randomname.pl/sdfsfdsdft/*"],
+      "js": ["contentScripts/documentIdle.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
