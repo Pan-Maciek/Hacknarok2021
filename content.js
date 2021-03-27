@@ -34,7 +34,7 @@ chrome.runtime.onMessage.addListener(message => {
     range: RangeUtils.toObject(range),
   })
 
-  let mark = create_mark_with_popup(range)
+  //let mark = create_mark_with_popup(range)
   // document.getElementsByClassName('random-guys-container')[0].appendChild(create_message_node("sdsdsd"))
   // document.getElementsByClassName('random-guys-container')[0].appendChild(create_message_node("sdgsdffsdsdsd"))
 })
@@ -42,10 +42,11 @@ chrome.runtime.onMessage.addListener(message => {
 /**
  * Mark the selected text span as a comment and open the text input popup
  */
-function create_mark_with_popup(id, range){// TODO - create random ID for each mark, and then iterate over every "text" part in range > apply this ID as class, and attach to each part onclick handler
+function create_mark_with_popup(range, id){// TODO - create random ID for each mark, and then iterate over every "text" part in range > apply this ID as class, and attach to each part onclick handler
 
   let mark_node = document.createElement('mark')
   mark_node.classList.add('random-guys-mark')
+  mark_node.id = id
 
   const root = document.createElement('div')
   root.classList.add('random-guys-root')
@@ -108,8 +109,8 @@ pageRef.on('value', snap => {
 
   for (let id in data) {
     if(a[id]) continue
-    
-    const mark = create_mark_with_popup(id, RangeUtils.toRange(data[id].range))
+    console.log(id)
+    const mark = create_mark_with_popup(RangeUtils.toRange(data[id].range), id)
 
     a[id] = mark
   }
