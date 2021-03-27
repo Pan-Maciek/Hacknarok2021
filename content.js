@@ -59,16 +59,24 @@ function addComment(comment) {
   // firebase.database().ref(`/users/${comment.user}`).child(id).set(comment);
 }
 
-function addCommentToHiglhlight(highlightId) {
+function uploadComment(highlightId) {
   // get highlight by id
   user = 'mati'; // TODO: change user 
-  text = document.getElementById(highlightId).innerText;
+  text = document.getElementById(highlightId).getElementsByTagName('input').innerText;
+  console.log(text)
   // const pageURL = encode(`${location.hostname}${location.pathname}`)
   // firebase.default.database().ref(`/pages/${encodeURIComponent(window.location.href)}/${highlightId}`)
   var updates = {}
   updates[`/${highlightId}/comment`] = text
   pageRef.child(highlightId).update(updates);
   // add comment to highlight id
+}
+
+function create_message_node(message_content){
+  const message_node = document.createElement('div')
+  message_node.classList.add('random-guys-message')
+  message_node.innerHTML = message_content
+  return message_node
 }
 
 
@@ -103,7 +111,7 @@ function create_mark_with_popup(range, id){// TODO - create random ID for each m
   root.innerHTML = `<div class="random-guys-container">
                     </div><div class="random-guys-input">
                     <input id="comment-add-input" type="text">
-                    <button onclick=() >Dodaj</button>
+                    <button>Dodaj</button>
                     </div>`
   
   console.log(range) // TODO DELETE
@@ -121,14 +129,14 @@ function create_mark_with_popup(range, id){// TODO - create random ID for each m
   input.addEventListener('keypress', e => {
     console.log(e)
   })
+
+  const upload_button = root.querySelector('button')
+  upload_button.addEventListener('click', (event) => {
+    uploadComment(id)
+  })
+
   return mark_node
 }
 
 
-function create_message_node(message_content){
-  const message_node = document.createElement('div')
-  message_node.classList.add('random-guys-message')
-  message_node.innerHTML = message_content
-  return message_node
-}
 
