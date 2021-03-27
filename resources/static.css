@@ -1,5 +1,7 @@
 .random-guys-mark{
     background: yellow;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .random-guys-mark:hover{
