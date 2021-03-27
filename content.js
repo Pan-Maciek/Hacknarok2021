@@ -40,7 +40,7 @@ pageRef.on('value', snap => {
   for (let id in data) {
     if(a[id]) continue
 
-    const mark = create_mark_with_popup(RangeUtils.toRange(data[id].range), id)
+    const mark = createHighlightWithPopup(RangeUtils.toRange(data[id].range), id)
 
     a[id] = mark
   }
@@ -71,7 +71,7 @@ function uploadComment(highlightId) {
   // add comment to highlight id
 }
 
-function create_message_node(message_content){
+function createCommentNode(message_content){
   const message_node = document.createElement('div')
   message_node.classList.add('random-guys-message')
   message_node.innerHTML = message_content
@@ -91,19 +91,19 @@ chrome.runtime.onMessage.addListener(message => {
     range: RangeUtils.toObject(range),
   })
 
-  //let mark = create_mark_with_popup(range)
-  // document.getElementsByClassName('random-guys-container')[0].appendChild(create_message_node("sdsdsd"))
-  // document.getElementsByClassName('random-guys-container')[0].appendChild(create_message_node("sdgsdffsdsdsd"))
+  //let mark = createHighlightWithPopup(range)
+  // document.getElementsByClassName('random-guys-container')[0].appendChild(createCommentNode("sdsdsd"))
+  // document.getElementsByClassName('random-guys-container')[0].appendChild(createCommentNode("sdgsdffsdsdsd"))
 })
 
 /**
  * Mark the selected text span as a comment and open the text input popup
  */
-function create_mark_with_popup(range, id){// TODO - create random ID for each mark, and then iterate over every "text" part in range > apply this ID as class, and attach to each part onclick handler
+function createHighlightWithPopup(range, id){// TODO - create random ID for each mark, and then iterate over every "text" part in range > apply this ID as class, and attach to each part onclick handler
 
-  let mark_node = document.createElement('mark')
-  mark_node.classList.add('random-guys-mark')
-  mark_node.id = id
+  let markNode = document.createElement('mark')
+  markNode.classList.add('random-guys-mark')
+  markNode.id = id
 
   const root = document.createElement('div')
   root.classList.add('random-guys-root')
@@ -112,12 +112,11 @@ function create_mark_with_popup(range, id){// TODO - create random ID for each m
                     <input type="text">
                     <button>Dodaj</button>
                     </div>`
-  
-  console.log(range) // TODO DELETE
-  range.surroundContents(mark_node)
 
-  mark_node.appendChild(root)
-  mark_node.addEventListener('click', () => {
+  range.surroundContents(markNode)
+
+  markNode.appendChild(root)
+  markNode.addEventListener('click', () => {
     root.classList.toggle('random-guys-visible')
   })
   root.addEventListener('click', (event) => {
@@ -131,12 +130,12 @@ function create_mark_with_popup(range, id){// TODO - create random ID for each m
     }
   })
 
-  const upload_button = root.querySelector('button')
-  upload_button.addEventListener('click', function(){
+  const uploadButton = root.querySelector('button')
+  uploadButton.addEventListener('click', function(){
     uploadComment(id)
   })
 
-  return mark_node
+  return markNode
 }
 
 
