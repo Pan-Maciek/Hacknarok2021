@@ -65,7 +65,7 @@ function uploadComment(highlightId) {
   // const pageURL = encode(`${location.hostname}${location.pathname}`)
   // firebase.default.database().ref(`/pages/${encodeURIComponent(window.location.href)}/${highlightId}`)
   var updates = {}
-  updates[`/comment`] = {user: text}
+  updates[`/comment`] = {user: user, text: text}
   pageRef.child(highlightId).update(updates);
   inputNode.value = ""
   // add comment to highlight id
