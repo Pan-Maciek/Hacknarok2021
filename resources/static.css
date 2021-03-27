@@ -40,9 +40,10 @@
 .random-guys-container{
     display: flex;
     flex-direction: column;
-    max-height: 40vh;
+    max-height: 30vh;
     row-gap: 12px;
     margin-bottom: 12px;
+    overflow-y: scroll;
 }
 .random-guys-message{
     border-bottom: 1px solid #E8EAED;
