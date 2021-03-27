@@ -131,3 +131,6 @@ class RangeUtils {
     return range
   }
 }
+
+const encode = string => string.replace(/\./g, '<').replace(/\//g, '>')
+const decode = string => string.replace(/</g, '.').replace(/>/g, '/')
