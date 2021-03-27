@@ -13,33 +13,21 @@
     "128": "icons/128_chrome.png"
   },
 
+  "permissions": [
+    "contextMenus"
+  ],
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+
   "content_scripts": [
     {
-      "matches": ["*://randomname.pl/*"],
-      "exclude_matches": ["*://randomname.pl/dsdast/*"],
-      "run_at": "document_start",
-      "css": ["resources/static.css"]
-    },
-
-    {
-      "matches": ["*://randomname.pl/*"],
-      "exclude_matches": ["*://randomname.pl/sdfsdfsdft/*"],
-      "js": ["contentScripts/documentStart.js"],
-      "run_at": "document_start"
-    },
-
-    {
-      "matches": ["*://randomname.pl/*"],
-      "exclude_matches": ["*://randomname.pl/sdfsdfsdfst/*"],
-      "js": ["contentScripts/documentEnd.js"],
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["resources/static.css"],
       "run_at": "document_end"
-    },
-
-    {
-      "matches": ["*://randomname.pl/*"],
-      "exclude_matches": ["*://randomname.pl/sdfsfdsdft/*"],
-      "js": ["contentScripts/documentIdle.js"],
-      "run_at": "document_idle"
     }
   ]
 }
