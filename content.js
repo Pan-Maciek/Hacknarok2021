@@ -39,8 +39,7 @@ pageRef.on('value', snap => {
 
   for (let id in data) {
     if(a[id]) continue
-    
-    console.log(id)
+
     const mark = create_mark_with_popup(RangeUtils.toRange(data[id].range), id)
 
     a[id] = mark
@@ -61,12 +60,14 @@ function addComment(comment) {
 function uploadComment(highlightId) {
   // get highlight by id
   let user = 'mati'; // TODO: change user
-  let text = document.getElementById(highlightId).getElementsByTagName('input')[0].value;
+  let inputNode = document.getElementById(highlightId).getElementsByTagName('input')[0]
+  let text = inputNode.value;
   // const pageURL = encode(`${location.hostname}${location.pathname}`)
   // firebase.default.database().ref(`/pages/${encodeURIComponent(window.location.href)}/${highlightId}`)
   var updates = {}
   updates[`/comment`] = {user: text}
   pageRef.child(highlightId).update(updates);
+  inputNode.value = ""
   // add comment to highlight id
 }
 
@@ -125,7 +126,9 @@ function create_mark_with_popup(range, id){// TODO - create random ID for each m
 
   const input = root.querySelector('input')
   input.addEventListener('keypress', e => {
-    console.log(e)
+    if(e.key === "Enter"){
+      uploadComment(id)
+    }
   })
 
   const upload_button = root.querySelector('button')
