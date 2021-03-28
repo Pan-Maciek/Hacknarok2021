@@ -31,7 +31,7 @@ const uploadComment = (highlightId, text) =>
 function createCommentNode(messageContent, userName) {
   const messageNode = document.createElement('div')
   messageNode.classList.add('random-guys-message')
-  messageNode.innerHTML = userName + ": " + messageContent
+  messageNode.innerHTML = "<div class='random-guys-message-circle'>" + userName.charAt(0).toUpperCase() + "</div><div class='random-guys-username'>" + userName + "</div><div class='random-guys-content'>" + messageContent + "</div>"
   return messageNode
 }
 

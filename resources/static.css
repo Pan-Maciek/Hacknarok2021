@@ -52,17 +52,62 @@
     display: flex;
     flex-direction: column;
     max-height: 30vh;
-    row-gap: 12px;
-    margin-bottom: 12px;
+    /*row-gap: 8px;*/
+    /*margin-bottom: 12px;*/
     overflow-y: scroll;
     scrollbar-width: thin;
-
 }
 
 .random-guys-message{
     border-bottom: 1px solid #E8EAED;
-    padding: 4px;
+    padding: 8px;
+    line-height: 2em;
+    /*min-height: 2em;*/
+
+    display: grid;
+    grid-template-areas:
+            "circle username"
+            "circle content"
+            ". content";
+    grid-template-columns: 2em auto;
+    grid-template-rows: 0.67em 1.33em auto;
+    grid-column-gap: 8px;
 }
+
+.random-guys-message-circle{
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,0);
+    border-radius: 50%;
+
+    background: blue;
+    color: white;
+    display: inline-block;
+
+    grid-area: circle;
+}
+
+.random-guys-username{
+    height: 0.67em;
+    line-height: 0.67em;
+    font-size: 0.67em;
+    color: #333;
+    font-weight: bold;
+
+    grid-area: username;
+}
+
+.random-guys-content{
+    line-height: 1.33em;
+    font-size: 1.33em;
+    color: black;
+    line-break: anywhere;
+    grid-area: content;
+}
+
 .random-guys-message:last-of-type{
     border-bottom: none;
 }
