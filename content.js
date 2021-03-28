@@ -31,7 +31,11 @@ const uploadComment = (highlightId, text) =>
 function createCommentNode(messageContent, userName) {
   const messageNode = document.createElement('div')
   messageNode.classList.add('random-guys-message')
-  messageNode.innerHTML = "<div class='random-guys-message-circle'>" + userName.charAt(0).toUpperCase() + "</div><div class='random-guys-username'>" + userName + "</div><div class='random-guys-content'>" + messageContent + "</div>"
+
+  let circleHue = 0;
+  for(let letter of Array.from(userName)) circleHue += 7 * letter.charCodeAt(0)
+
+  messageNode.innerHTML = "<div class='random-guys-message-circle' style='background: hsl(" + circleHue + ",50%,50%)'>" + userName.charAt(0).toUpperCase() + "</div><div class='random-guys-username'>" + userName + "</div><div class='random-guys-content'>" + messageContent + "</div>"
   return messageNode
 }
 
