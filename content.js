@@ -65,7 +65,7 @@ function createHighlightWithPopup(range, id) {// TODO - create random ID for eac
   root.classList.add('random-guys-root')
   root.innerHTML = `<div class="random-guys-container">
                     </div><div class="random-guys-input">
-                    <input type="text">
+                    <input type="text" placeholder="Powiedz nam co o tym myślisz ...">
                     <button>Dodaj</button>
                     </div>`
 
