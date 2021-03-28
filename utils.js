@@ -60,7 +60,7 @@ class NodeUtils {
   }
 }
 
-class RangeUtils {
+ class RangeUtils {
   /**
    * Convert a Range object to a XRange object
    * 
@@ -134,3 +134,19 @@ class RangeUtils {
 
 const encode = string => string.replace(/\./g, '<').replace(/\//g, '>')
 const decode = string => string.replace(/</g, '.').replace(/>/g, '/')
+
+const stringHue = string => Array.from(string).reduce((acc, x) => acc + 13 * x.charCodeAt(0), 123) % 360
+
+/**
+ * 
+ * @returns {(props:Object)=>HTMLElement}
+ */
+const createElement = type => props => {
+  const node = document.createElement(type)
+  for (let key in props) 
+    node[key] = props[key]
+  return node
+}
+
+const div = createElement('div')
+const mark = createElement('mark')

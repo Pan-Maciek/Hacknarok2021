@@ -20,88 +20,71 @@ pageRef.on('child_added', snap => {
   createHighlightWithPopup(RangeUtils.toRange(data.range), snap.key)
 })
 
-/**
- * The 'C' in CRUD for the comment store.
- */
-const addHighlight = comment => pageRef.push(comment)
-
-const uploadComment = (highlightId, text) =>
-  pageRef.child(highlightId).child('comment').push({ user, text })
-
-function createCommentNode(messageContent, userName) {
-  const messageNode = document.createElement('div')
-  messageNode.classList.add('random-guys-message')
-
-  let circleHue = 0;
-  for(let letter of Array.from(userName)) circleHue += 7 * letter.charCodeAt(0)
-
-  messageNode.innerHTML = "<div class='random-guys-message-circle' style='background: hsl(" + circleHue + ",50%,50%)'>" + userName.charAt(0).toUpperCase() + "</div><div class='random-guys-username'>" + userName + "</div><div class='random-guys-content'>" + messageContent + "</div>"
-  return messageNode
-}
-
-
-/**
- * Listening for the creation of new comments
- */
-chrome.runtime.onMessage.addListener(() => {
+function contextMenuClicked() {
   const range = document.getSelection().getRangeAt(0)
 
-  addHighlight({
+  pageRef.push({ // add highligh to store
     url: encodeURIComponent(window.location.href),
-    range: RangeUtils.toObject(range), 
+    range: RangeUtils.toObject(range),
     user
   })
+}
+chrome.runtime.onMessage.addListener(contextMenuClicked)
+
+const createCommentNode = ({ user, text }) => div({
+  className: 'random-guys-message',
+  innerHTML: `
+    <div class="random-guys-message-circle" style="background: hsl(${stringHue(user)},40%,50%)">${user.charAt(0).toUpperCase()}</div>
+    <div class="random-guys-username">${user}</div>
+    <div class="random-guys-content">${text}</div>
+  `
 })
 
 /**
  * Mark the selected text span as a comment and open the text input popup
  */
-function createHighlightWithPopup(range, id) {// TODO - create random ID for each mark, and then iterate over every "text" part in range > apply this ID as class, and attach to each part onclick handler
+function createHighlightWithPopup(range, id) {
 
-  let markNode = document.createElement('mark')
-  markNode.classList.add('random-guys-mark')
+  const root = div({
+    className: 'random-guys-root',
+    innerHTML: `
+      <div class="random-guys-container"></div>
+      <div class="random-guys-input">
+        <input type="text" placeholder="Powiedz nam co o tym myślisz ...">
+        <button>Dodaj</button>
+      </div>
+    `,
+    onclick: e => e.stopPropagation()
+  })
 
-  const root = document.createElement('div')
-  root.classList.add('random-guys-root')
-  root.innerHTML = `<div class="random-guys-container">
-                    </div><div class="random-guys-input">
-                    <input type="text" placeholder="Powiedz nam co o tym myślisz ...">
-                    <button>Dodaj</button>
-                    </div>`
+  const markNode = mark({
+    className: 'random-guys-mark',
+    onclick: e => root.classList.toggle('random-guys-visible')
+  })
 
   const container = root.querySelector('.random-guys-container')
-  pageRef.child(id).child('comment').on('child_added', snap => {
-    const node = createCommentNode(snap.val().text, snap.val().user)
-    container.append(node)
-    container.scrollBy(0,10000)
-  })
-  range.surroundContents(markNode)
-
-  markNode.appendChild(root)
-  markNode.addEventListener('click', () => {
-    root.classList.toggle('random-guys-visible')
-    container.scrollBy(0,10000)
-  })
-  root.addEventListener('click', event => {
-    event.stopPropagation()
-  }, false)
-
   const input = root.querySelector('input')
-  input.addEventListener('keypress', e => {
-    if (e.key === "Enter") {
-      uploadComment(id, input.value)
+  const button = root.querySelector('button')
+
+  pageRef.child(id).child('comment').on('child_added', snap => {
+    const node = createCommentNode(snap.val())
+    container.append(node)
+    container.scrollBy(0, 10000)
+  })
+
+  function upload() {
+    if (input.value) {
+      pageRef.child(id).child('comment').push({ user, text: input.value })
       input.value = ""
     }
-  })
+  }
 
-  const uploadButton = root.querySelector('button')
-  uploadButton.addEventListener('click', function () {
-    uploadComment(id, input.value)
-    input.value = ""
+  input.addEventListener('keypress', e => {
+    if (e.key === "Enter") upload()
   })
+  button.addEventListener('click', upload)
 
+  range.surroundContents(markNode)
+  markNode.append(root)
   return markNode
 }
-
-
-
