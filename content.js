@@ -9,7 +9,7 @@ const firebaseConfig = {
   appId: "1:97150647711:web:1fd80ec04cad620b7b91aa",
   measurementId: "G-0FCXLZJ266"
 }
-const user = 'mati'
+let user = ''
 firebase.default.initializeApp(firebaseConfig)
 
 const pageURL = encode(`${location.hostname}${location.pathname}`)
@@ -29,7 +29,11 @@ function contextMenuClicked() {
     user
   })
 }
-chrome.runtime.onMessage.addListener(contextMenuClicked)
+chrome.runtime.sendMessage({ type: 'get-user' })
+chrome.runtime.onMessage.addListener(({ payload, type }) => {
+  if (type === 'set-user') user = payload
+  else if (type === 'context-menu') contextMenuClicked()
+})
 
 const createCommentNode = ({ user, text }) => div({
   className: 'random-guys-message',
