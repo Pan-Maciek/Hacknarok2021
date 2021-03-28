@@ -35,16 +35,41 @@ chrome.runtime.onMessage.addListener(({ payload, type }) => {
   else if (type === 'context-menu') contextMenuClicked()
 })
 
-const createCommentNode = ({ user, text }) => div({
-  className: 'random-guys-message',
-  innerHTML: `
+const createCommentNode = ({ user, text, upvote, downvote }, commentRef) => {
+  const node = div({
+    className: 'random-guys-message',
+    innerHTML: `
     <div class="random-guys-message-circle" style="background: hsl(${stringHue(user)},40%,50%)">${user.charAt(0).toUpperCase()}</div>
     <div class="random-guys-username">${user}</div>
     <div class="random-guys-content">${text}</div>
-    <div class="random-guys-downvotes">-0</div>
-    <div class="random-guys-upvotes">+0</div>
+    <div class="random-guys-downvotes">-${downvote}</div>
+    <div class="random-guys-upvotes">+${upvote}</div>
   `
-})
+  })
+  const downvoteNode = node.querySelector(".random-guys-downvotes")
+  downvoteNode.addEventListener("click", (e) => {
+    commentRef.set({user, text, downvote: downvote+1, upvote})
+
+  })
+  const upvoteNode = node.querySelector(".random-guys-upvotes")
+  upvoteNode.addEventListener("click", (e) => {
+    commentRef.set({user, text, downvote, upvote:upvote+1})
+
+  })
+  commentRef.on('child_changed', (snap ) => {
+    console.log(snap.val(), snap.key);
+    if(snap.key == "upvote") {
+      upvote = snap.val()
+      upvoteNode.innerHTML=`+${upvote}`
+    } else {
+      downvote = snap.val()
+      downvoteNode.innerHTML=`-${downvote}`
+    }
+  })
+  return node;
+}
+
+
 
 /**
  * Mark the selected text span as a comment and open the text input popup
@@ -72,15 +97,22 @@ function createHighlightWithPopup(range, id) {
   const input = root.querySelector('input')
   const button = root.querySelector('button')
 
-  pageRef.child(id).child('comment').on('child_added', snap => {
-    const node = createCommentNode(snap.val())
+  const x = {};
+
+  const commentsRef = pageRef.child(id).child('comment')
+  commentsRef.on('child_added', snap => {
+    const node = createCommentNode(snap.val(), commentsRef.child(snap.key))
     container.append(node)
+    x[snap.key] = node
     container.scrollBy(0, 10000)
   })
+  
+
 
   function upload() {
     if (input.value) {
-      pageRef.child(id).child('comment').push({ user, text: input.value })
+      pageRef.child(id).child('comment').push({ user, text: input.value,     upvote: 0,
+        downvote: 0 })
       input.value = ""
     }
   }
