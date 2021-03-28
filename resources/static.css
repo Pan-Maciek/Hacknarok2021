@@ -1,19 +1,20 @@
 .random-guys-mark{
     all: unset;
-    background: yellow;
+    background: rgb(255 255 0 / 60%);
     cursor: pointer;
 }
 .random-guys-mark * {
     all: initial;
-    font-family: Roboto, Calibri, sans-serif;
+    font-family: sans-serif !important;
 }
 
 .random-guys-mark:hover{
-    background: #E2C044;
+    background: rgb(226 192 68 / 60%);
     box-shadow: 0 0 2px 1px #E2C044;
 }
 
 .random-guys-root{
+    font-family: sans-serif;
     position: absolute;
     box-sizing: border-box;
 
@@ -28,8 +29,10 @@
     min-height: 5vh;
 
     display: none;
-    box-shadow: 1px 1px 1px 0 rgb(0 0 0 / 11%);
+    overflow: hidden;
+    box-shadow: 0 0 4px 0 rgba(51,51,51,0.5) ;
     transition-duration: 0.3s;
+    font-size: 14px;
 }
 
 .random-guys-visible{
@@ -39,7 +42,7 @@
 
 
 .random-guys-root:hover{
-    box-shadow: 2px 3px 3px 0px rgba(56, 56, 56, 0.2);
+    box-shadow: 0 0 4px 0 rgba(51,51,51,0.6) ;
     border-color: #999
 }
 
@@ -51,7 +54,6 @@
     display: flex;
     flex-direction: column;
     max-height: 30vh;
-    padding: 10px 5px;
     box-sizing: border-box;
     overflow-y: scroll;
     scrollbar-width: thin;
@@ -84,7 +86,6 @@
     border: 1px solid rgba(0,0,0,0);
     border-radius: 50%;
 
-    background: blue;
     color: white;
     display: inline-block;
 
@@ -102,8 +103,8 @@
 }
 
 .random-guys-content{
-    line-height: 1.33em;
-    font-size: 1.33em;
+    line-height: 1em;
+    font-size: 1em;
     color: black;
     line-break: anywhere;
     grid-area: content;
@@ -132,6 +133,7 @@
     height: 2em;
     box-sizing: border-box;
     flex-grow: 1;
+    font-family: sans-serif;
 }
 
 .random-guys-input > input:focus{
@@ -139,7 +141,7 @@
 }
 
 .random-guys-input > button{
-    cursor: pointer;
+    cursor: pointer !important;
     margin-left: 10px;
 
     border-radius: 3px;
