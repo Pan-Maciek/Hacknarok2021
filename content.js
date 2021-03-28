@@ -67,8 +67,6 @@ function createHighlightWithPopup(range, id) {
   const container = root.querySelector('.random-guys-container')
   const input = root.querySelector('input')
   const button = root.querySelector('button')
-  const downvotesNode = root.querySelector('.random-guys-downvotes')
-  const upvotesNode = root.querySelector('.random-guys-upvotes')
 
   pageRef.child(id).child('comment').on('child_added', snap => {
     const node = createCommentNode(snap.val())
@@ -87,12 +85,6 @@ function createHighlightWithPopup(range, id) {
     if (e.key === "Enter") upload()
   })
   button.addEventListener('click', upload)
-  downvotesNode.addEventListener('click', (event) =>{
-
-  })
-  upvotesNode.addEventListener('click', (event) =>{
-
-  })
 
   range.surroundContents(markNode)
   markNode.append(root)
