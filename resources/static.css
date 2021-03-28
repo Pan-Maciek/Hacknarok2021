@@ -69,10 +69,10 @@
 
     display: grid;
     grid-template-areas:
-            "circle username"
-            "circle content"
-            ". content";
-    grid-template-columns: 2em auto;
+            "circle username downvotes upvotes"
+            "circle content downvotes upvotes"
+            ". content downvotes upvotes";
+    grid-template-columns: 2em auto 2em 2em;
     grid-template-rows: 0.67em 1.33em auto;
     grid-column-gap: 8px;
 }
@@ -108,6 +108,27 @@
     color: black;
     line-break: anywhere;
     grid-area: content;
+}
+
+.random-guys-downvotes, .random-guys-upvotes{
+    width: 2.5em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    box-sizing: border-box;
+    display: inline-block;
+    border-left: 1px solid #e8eaed;
+    line-break: anywhere;
+}
+
+.random-guys-downvotes{
+    color: #A90C1C;
+    grid-area: downvotes;
+}
+
+.random-guys-upvotes{
+    color: #48A868;
+    grid-area: upvotes;
 }
 
 .random-guys-message:last-of-type{
