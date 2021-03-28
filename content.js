@@ -80,6 +80,7 @@ function createHighlightWithPopup(range, id) {// TODO - create random ID for eac
   markNode.appendChild(root)
   markNode.addEventListener('click', () => {
     root.classList.toggle('random-guys-visible')
+    container.scrollBy(0,10000)
   })
   root.addEventListener('click', event => {
     event.stopPropagation()
