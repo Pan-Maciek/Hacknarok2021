@@ -35,13 +35,26 @@ chrome.runtime.onMessage.addListener(({ payload, type }) => {
   else if (type === 'context-menu') contextMenuClicked()
 })
 
+
+/**
+ * Marks and enables links within given text.
+ * @param {*} text - the text to search for links
+ * @returns - the same text, but with <a> tags
+ */
+function markLinks(text) {
+  return text.replace(/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g, (link) => {
+    return `<a href="${link}">${link}</a>`
+  })
+}
+
+
 const createCommentNode = ({ user, text, upvote, downvote }, commentRef) => {
   const node = div({
     className: 'random-guys-message',
     innerHTML: `
     <div class="random-guys-message-circle" style="background: hsl(${stringHue(user)},40%,50%)">${user.charAt(0).toUpperCase()}</div>
     <div class="random-guys-username">${user}</div>
-    <div class="random-guys-content">${text}</div>
+    <div class="random-guys-content">${markLinks(text)}</div>
     <div class="random-guys-downvotes">-${downvote}</div>
     <div class="random-guys-upvotes">+${upvote}</div>
   `

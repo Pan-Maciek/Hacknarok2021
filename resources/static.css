@@ -118,6 +118,8 @@
     box-sizing: border-box;
     display: inline-block;
     border-left: 1px solid #e8eaed;
+    cursor: pointer;
+    user-select: none;
     line-break: anywhere;
 }
 
@@ -133,6 +135,16 @@
 
 .random-guys-message:last-of-type{
     border-bottom: none;
+}
+
+.random-guys-message a {
+    cursor: pointer !important;
+    text-decoration: underline;
+}
+
+.random-guys-message a:hover{
+    text-decoration: underline;
+    color: rgb(26,115,232);
 }
 
 .random-guys-input{

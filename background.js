@@ -8,7 +8,7 @@ chrome.contextMenus.create({
   },
 })
 
-let user = ""
+let user = "Guest"
 
 chrome.runtime.onMessage.addListener(({ type, payload }, sender) => {
   if (type === "set-user") user = payload
